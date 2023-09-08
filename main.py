@@ -6,13 +6,13 @@ import helper
 
 
 
-
+# ------------------------------------------------------------------------------------------------------------
 
 csv_file='Final_electricity_data.csv'
 df = pd.read_csv(csv_file)
 df['Electricity_per_capita']=round((df['electricity_generation']*1000000000)/df['population'],2)
 df['year']=df['year'].astype(str)
-# -----------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------
 
 st.set_page_config(layout='wide')
 list_of_continents=df['Continent'].sort_values().unique().tolist()
@@ -29,7 +29,7 @@ User_Menu=st.sidebar.radio('SELECT OPTION',('Worldwide','Continent Wise','Countr
 
 Year = st.sidebar.selectbox('SELECT YEAR', year)
 
-# -----------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------(0)
 
 # A1) -->
 if User_Menu == 'Worldwide' and Year=='Overall':
@@ -122,7 +122,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
                              y=['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity',
                                 'hydro_electricity', 'solar_electricity', 'biofuel_electricity', 'wind_electricity',
                                 'other_renewable_exc_biofuel_electricity'],
-                             labels=({'year': 'Year', 'value': 'Electricity in (GWH)'}))
+                             labels=({'year': 'Year', 'value': 'Electricity in (GWH)'}),title='Electricity Generation Over The Year')
 # A1.8) -->
     Worldwiswe_fossile = df[['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
     Worldwiswe_fossile.rename(columns={'index': 'Electricity', 0: 'Percentage'}, inplace=True)
@@ -148,7 +148,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
     st.plotly_chart(Worldwide_fig7)
     st.plotly_chart(Wordwide_fig8)
     
-# ------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------(1)
 # B1) --->
 if User_Menu == 'Worldwide' and Year!='Overall':
     st.header(f'Worldwide Electricity Stats in {Year}')
@@ -250,7 +250,7 @@ if User_Menu == 'Worldwide' and Year!='Overall':
     st.plotly_chart(fig4)
     st.plotly_chart(Worldwide_fig7)
 
-# -------------------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------------------(2)
 
 # 3) -----> Continent Wise
 if User_Menu=='Continent Wise' :
@@ -355,7 +355,7 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
     st.plotly_chart(ContinentWise_fig7)
     st.plotly_chart(Continent_fig8)
 
-# -----------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------------(3)
 
 if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     st.header(f'Electricity Stats of {Continent} in {Year}')
@@ -467,7 +467,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     st.plotly_chart(Continent_fig4)
     st.plotly_chart(ContinentWise_fig5)
 
-# --------------------------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------------------(4)
 
 # COUNTRY WISE
 if User_Menu=='Country Wise':
@@ -562,6 +562,8 @@ if User_Menu=='Country Wise' and Year=='Overall' and Country!='Overall':
     st.plotly_chart(Country_fig4)
     st.plotly_chart(Country_fig7)
     st.plotly_chart(Country_fig8)
+    
+# --------------------------------------------------------------------------------------------------------------------------(5)
 
 if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
     st.header(f'Electricity Stats of {Country} in {Year}')
@@ -626,3 +628,4 @@ if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
     st.plotly_chart(Continent_fig4)
     st.plotly_chart(ContinentWise_fig5)
 
+# -------------------------------------------------------------------------------------------------------------------------(6)
