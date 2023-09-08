@@ -10,7 +10,9 @@ import helper
 
 csv_file='Final_electricity_data.csv'
 df = pd.read_csv(csv_file)
+df['Electricity_per_capita']=round((df['electricity_generation']*1000000000)/df['population'],2)
 df['year']=df['year'].astype(str)
+# -----------------------------------------------------------------------------------------
 
 st.set_page_config(layout='wide')
 list_of_continents=df['Continent'].sort_values().unique().tolist()
@@ -27,6 +29,7 @@ User_Menu=st.sidebar.radio('SELECT OPTION',('Worldwide','Continent Wise','Countr
 
 Year = st.sidebar.selectbox('SELECT YEAR', year)
 
+# -----------------------------------------------------------------------------------------
 
 # A1) -->
 if User_Menu == 'Worldwide' and Year=='Overall':
@@ -41,6 +44,8 @@ if User_Menu == 'Worldwide' and Year=='Overall':
     y1=df.groupby('country')['hydro_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y2=df.groupby('country')['solar_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y3=df.groupby('country')['wind_electricity'].sum().sort_values(ascending=False).head(1).index[0]
+    y4=df.groupby('country')['biofuel_electricity'].sum().sort_values(ascending=False).head(1).index[0]
+    
     col1, col2, col3, col4 = st.columns(4)
     with col1 :
         st.info('Coal Electricity')
@@ -54,7 +59,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
     with col4 :
         st.info('Nuclear Electricity')
         st.subheader(x4)
-    col1,col2,col3=st.columns(3)
+    col1,col2,col3,col4=st.columns(4)
     with col1:
         st.info('Hydro Electricity')
         st.subheader(y1)
@@ -64,9 +69,12 @@ if User_Menu == 'Worldwide' and Year=='Overall':
     with col3:
         st.info('Wind Electricity')
         st.subheader(y3)
+    with col4:
+        st.info('Biofuel Electricity')
+        st.subheader(y4)
     st.markdown("""***""")
 
-
+    
 # A1.1) -->
     Electricity_generation_YearWise=df.groupby('year')['electricity_generation'].sum().reset_index()
     fig = px.line(Electricity_generation_YearWise, x='year', y='electricity_generation',labels=({'year':'Year','electricity_generation':'Electricity Generation in (GWH)'}),markers='year',title='Electricity Generation over the Year')
@@ -139,7 +147,8 @@ if User_Menu == 'Worldwide' and Year=='Overall':
     st.plotly_chart(Worldwide_fig4)
     st.plotly_chart(Worldwide_fig7)
     st.plotly_chart(Wordwide_fig8)
-
+    
+# ------------------------------------------------------------------------------------------------------------
 # B1) --->
 if User_Menu == 'Worldwide' and Year!='Overall':
     st.header(f'Worldwide Electricity Stats in {Year}')
@@ -153,6 +162,7 @@ if User_Menu == 'Worldwide' and Year!='Overall':
     y1 = df[df['year'] == Year].groupby('country')['hydro_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y2 = df[df['year'] == Year].groupby('country')['solar_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y3 = df[df['year'] == Year].groupby('country')['wind_electricity'].sum().sort_values(ascending=False).head(1).index[0]
+    y4 = df[df['year'] == Year].groupby('country')['biofuel_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.info('Coal Electricity')
@@ -166,7 +176,7 @@ if User_Menu == 'Worldwide' and Year!='Overall':
     with col4:
         st.info('Nuclear Electricity')
         st.subheader(x4)
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.info('Hydro Electricity')
         st.subheader(y1)
@@ -176,6 +186,9 @@ if User_Menu == 'Worldwide' and Year!='Overall':
     with col3:
         st.info('Wind Electricity')
         st.subheader(y3)
+    with col4:
+        st.info('Biofuel Electricity')
+        st.subheader(y4)
     st.markdown("""***""")
 
     x=round(df[df['year']==Year]['electricity_generation'].sum()*1000000000/df[df['year']==Year]['population'].sum())
@@ -237,7 +250,7 @@ if User_Menu == 'Worldwide' and Year!='Overall':
     st.plotly_chart(fig4)
     st.plotly_chart(Worldwide_fig7)
 
-
+# -------------------------------------------------------------------------------------------------------------
 
 # 3) -----> Continent Wise
 if User_Menu=='Continent Wise' :
@@ -256,6 +269,7 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
     y1 = df[df['Continent'] == Continent].groupby('country')['hydro_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y2 = df[df['Continent'] == Continent].groupby('country')['solar_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y3 = df[df['Continent'] == Continent].groupby('country')['wind_electricity'].sum().sort_values(ascending=False).head(1).index[0]
+    y4 = df[df['Continent'] == Continent].groupby('country')['biofuel_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.info('Coal Electricity')
@@ -269,7 +283,7 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
     with col4:
         st.info('Nuclear Electricity')
         st.subheader(x4)
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4= st.columns(4)
     with col1:
         st.info('Hydro Electricity')
         st.subheader(y1)
@@ -279,6 +293,9 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
     with col3:
         st.info('Wind Electricity')
         st.subheader(y3)
+    with col4:
+        st.info('Biofuel Electricity')
+        st.subheader(y4)
     st.markdown("""***""")
 #1 --->
     Electricity_generation_Continentwise = df[df['Continent'] == Continent].groupby('year')[
@@ -338,7 +355,7 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
     st.plotly_chart(ContinentWise_fig7)
     st.plotly_chart(Continent_fig8)
 
-
+# -----------------------------------------------------------------------------------------------------------------------
 
 if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     st.header(f'Electricity Stats of {Continent} in {Year}')
@@ -352,6 +369,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     y1=df[(df['year'] == Year) & (df['Continent'] == Continent)].groupby('country')['hydro_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y2=df[(df['year'] == Year) & (df['Continent'] == Continent)].groupby('country')['solar_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     y3=df[(df['year'] == Year) & (df['Continent'] == Continent)].groupby('country')['wind_electricity'].sum().sort_values(ascending=False).head(1).index[0]
+    y4=df[(df['year'] == Year) & (df['Continent'] == Continent)].groupby('country')['biofuel_electricity'].sum().sort_values(ascending=False).head(1).index[0]
     col1, col2, col3, col4 = st.columns(4)
     with col1 :
         st.info('Coal Electricity')
@@ -365,7 +383,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     with col4 :
         st.info('Nuclear Electricity')
         st.subheader(x4)
-    col1,col2,col3=st.columns(3)
+    col1,col2,col3,col4=st.columns(4)
     with col1:
         st.info('Hydro Electricity')
         st.subheader(y1)
@@ -375,6 +393,9 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     with col3:
         st.info('Wind Electricity')
         st.subheader(y3)
+    with col4:
+        st.info('Biofuel Electricity')
+        st.subheader(y4)
     st.markdown("""***""")
 
 
@@ -446,7 +467,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     st.plotly_chart(Continent_fig4)
     st.plotly_chart(ContinentWise_fig5)
 
-
+# --------------------------------------------------------------------------------------------------------------------------
 
 # COUNTRY WISE
 if User_Menu=='Country Wise':
