@@ -414,7 +414,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
 
 
     x=round(df[(df['year']==Year)&(df['Continent']==Continent)]['electricity_generation'].sum()*1000000000/df[(df['year']==Year)&(df['Continent']==Continent)]['population'].sum())
-    y = df[(df['year']==Year)&(df['Continent']==Continent)]['electricity_generation'].sum()
+    y = round(df[(df['year']==Year)&(df['Continent']==Continent)]['electricity_generation'].sum(),2)
     col1, col2= st.columns(2)
     with col1 :
         st.info(f'Electricity per Capita in {Year}')
@@ -463,7 +463,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
 # 5)->
     ContinentWise_fossile = df[(df['year'] == Year) & (df['Continent'] == Continent)][
         ['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
-    ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
+    ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
     ContinentWise_fig5 = px.pie(ContinentWise_fossile, values='Production in Twh', names='Electricity',
                                 title='Fossil Vs Non-Fossil Share ',color='Electricity',hole=0.4)
 
@@ -588,7 +588,7 @@ if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
     st.markdown("""***""")
 
     x = round(df[(df['year'] == Year)&(df['country'] == Country)]['electricity_generation'].sum()*1000000000/df[(df['year'] == Year)&(df['country'] == Country)]['population'].sum())
-    y = df[(df['year'] == Year)&(df['country'] == Country)]['electricity_generation'].sum()
+    y = round(df[(df['year'] == Year)&(df['country'] == Country)]['electricity_generation'].sum(),2)
     col1,col2 = st.columns(2)
     with col1:
         st.info(f'Electricity per Capita in {Year}')
