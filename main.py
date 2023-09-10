@@ -558,7 +558,7 @@ if User_Menu=='Country Wise' and Year=='Overall' and Country!='Overall':
     # 7) -->
     CountryWise_fossile = df[df['country'] == Country][
         ['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
-    CountryWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
+    CountryWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
     Country_fig7 = px.pie(CountryWise_fossile, values='Production in Twh', names='Electricity',
                           title='Fossil Vs Non-Fossil Share',hole=0.4)
     
@@ -632,8 +632,8 @@ if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
     # 5)->
     ContinentWise_fossile = df[(df['year'] == Year) & (df['country'] == Country)][
         ['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
-    ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    ContinentWise_fig5 = px.pie(ContinentWise_fossile, values='Production in GWH', names='Electricity',
+    ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
+    ContinentWise_fig5 = px.pie(ContinentWise_fossile, values='Production in Twh', names='Electricity',
                                 title='Fossil Vs Non-Fossil Share ', color='Electricity',hole=0.4)
 
 
