@@ -122,7 +122,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
                              y=['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity',
                                 'hydro_electricity', 'solar_electricity', 'biofuel_electricity', 'wind_electricity',
                                 'other_renewable_exc_biofuel_electricity'],
-                             labels=({'year': 'Year', 'value': 'Electricity in (TWH)'}),title='Electricity Generation Over The Year')
+                             labels=({'year': 'Year', 'value': 'Electricity in (Twh)'}),title='Electricity Generation Over The Year')
 # A1.8) -->
     Worldwiswe_fossile = df[['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
     Worldwiswe_fossile.rename(columns={'index': 'Electricity', 0: 'Percentage'}, inplace=True)
@@ -133,7 +133,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
 
     Demand_vs_supply = df.groupby('year')[['electricity_generation', 'electricity_demand']].sum().reset_index()
     Wordwide_fig8 = px.line(Demand_vs_supply, x='year', y=['electricity_generation', 'electricity_demand'],
-                            markers='year', labels=({'year': 'Year', 'value': 'Electricity in TWH'}),title='Electricity Generation vs Demand Curve')
+                            markers='year', labels=({'year': 'Year', 'value': 'Electricity in Twh'}),title='Electricity Generation vs Demand Curve')
 
 # 9)
     Worldwide_Top=df.groupby('country')['electricity_generation'].sum().sort_values(ascending=False).head(10).reset_index()
@@ -141,10 +141,10 @@ if User_Menu == 'Worldwide' and Year=='Overall':
 
 
 # Vis --> 1(A)
-    st.plotly_chart(Worldwide_fig11)
     st.plotly_chart(fig)
     st.plotly_chart(Worldwide_fig6)
     st.plotly_chart(Worldwide_fig5)
+    st.plotly_chart(Worldwide_fig11)
     st.plotly_chart(Worldwide_fig2)
     st.plotly_chart(Worldwide_fig3)
     st.plotly_chart(Worldwide_fig4)
@@ -210,7 +210,7 @@ if User_Menu == 'Worldwide' and Year!='Overall':
         ['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity', 'hydro_electricity',
          'solar_electricity', 'biofuel_electricity', 'wind_electricity',
          'other_renewable_exc_biofuel_electricity']].sum().reset_index()
-    fig1 = px.bar(Electrity_by_year, x='index', y=0,labels=({'index':'Electricity Mode','0':'Value in TWH'}),color='index',title=f'Electricity Production by Year {Year}  ')
+    fig1 = px.bar(Electrity_by_year, x='index', y=0,labels=({'index':'Electricity Mode','0':'Value in Twh'}),color='index',title=f'Electricity Production by Year {Year}  ')
 
 # B1.2) -->
     Country_wise = df[df['year'] == Year][['non_renewable_electricity', 'renewable_electricity']].sum().reset_index()
@@ -246,13 +246,13 @@ if User_Menu == 'Worldwide' and Year!='Overall':
 
 # 6)
     Worldwide_Top=df[df['year']==Year].groupby('country')['electricity_generation'].sum().sort_values(ascending=False).head(10).reset_index()
-    Worldwide_fig11=px.bar(Worldwide_Top,x='country',y='electricity_generation',color='country',labels=({'country':'Country','electricity_generation':'Electricity Generation Value in Twh'}),title='Top 10 Most Electricity Generation Country From 2000-2022')
+    Worldwide_fig11=px.bar(Worldwide_Top,x='country',y='electricity_generation',color='country',labels=({'country':'Country','electricity_generation':'Electricity Generation Value in Twh'}),title='Top 10 Most Electricity Generation Country')
 
     
     # Vis B1) --->
-    st.plotly_chart(Worldwide_fig11)
     st.plotly_chart(fig1)
     st.plotly_chart(fig2)
+    st.plotly_chart(Worldwide_fig11)
     st.plotly_chart(fig3)
     st.plotly_chart(fig4)
     st.plotly_chart(Worldwide_fig7)
@@ -308,7 +308,7 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
     Electricity_generation_Continentwise = df[df['Continent'] == Continent].groupby('year')[
     'electricity_generation'].sum().reset_index()
     ContinentWise_fig1 = px.line(Electricity_generation_Continentwise, x='year', y='electricity_generation',
-                             labels=({'year': 'Year', 'electricity_generation': 'Electricity Generation in (GWH)'}),
+                             labels=({'year': 'Year', 'electricity_generation': 'Electricity Generation in (Twh)'}),
                              markers='year', title='Electricity Generation over the Year ')
 
 #2 --->
@@ -318,13 +318,13 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
 
 # 3-->
     ContinentWise = df[df['Continent']==Continent][['non_renewable_electricity', 'renewable_electricity']].sum().reset_index()
-    ContinentWise.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    ContinentWise_fig2=px.pie(ContinentWise,values='Production in GWH',names='Electricity',title='Renewable Vs Non-Renewable Share ',hole=0.4)
+    ContinentWise.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
+    ContinentWise_fig2=px.pie(ContinentWise,values='Production in Twh',names='Electricity',title='Renewable Vs Non-Renewable Share ',hole=0.4)
 
 
 # 4--->
     Electricity_by_other_ContinentWise = df[df['Continent']==Continent].groupby('year')[['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity', 'hydro_electricity', 'solar_electricity', 'biofuel_electricity', 'wind_electricity', 'other_renewable_exc_biofuel_electricity']].sum().reset_index()
-    Continent_fig6 = px.line(Electricity_by_other_ContinentWise, x='year',y=['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity','hydro_electricity', 'solar_electricity', 'biofuel_electricity', 'wind_electricity','other_renewable_exc_biofuel_electricity'],labels=({'year': 'Year', 'value': 'Electricity in (GWH)'}),title='Elelctricity Generation Mode Over the Year')
+    Continent_fig6 = px.line(Electricity_by_other_ContinentWise, x='year',y=['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity','hydro_electricity', 'solar_electricity', 'biofuel_electricity', 'wind_electricity','other_renewable_exc_biofuel_electricity'],labels=({'year': 'Year', 'value': 'Electricity in (Twh)'}),title='Electricity Generation Mode Over the Year')
 
 #5 -->
 
@@ -345,17 +345,24 @@ if User_Menu=='Continent Wise' and Year=='Overall' and Continent!='Overall':
 
 # 7) -->
     ContinentWise_fossile = df[df['Continent']==Continent][['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
-    ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    ContinentWise_fig7=px.pie(ContinentWise_fossile,values='Production in GWH',names='Electricity',title='Fossil Vs Non-Fossil Share',hole=0.4)
+    ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
+    ContinentWise_fig7=px.pie(ContinentWise_fossile,values='Production in Twh',names='Electricity',title='Fossil Vs Non-Fossil Share',hole=0.4)
 
+# 8) -->
     Demand_vs_supply = df[df['Continent']==Continent].groupby('year')[['electricity_generation', 'electricity_demand']].sum().reset_index()
     Continent_fig8 = px.line(Demand_vs_supply, x='year', y=['electricity_generation', 'electricity_demand'],
-                            markers='year', labels=({'year': 'Year', 'value': 'Electricity in GWH'}),
+                            markers='year', labels=({'year': 'Year', 'value': 'Electricity in Twh'}),
                             title='Electricity Generation vs Demand Curve')
+
+# 9) -->
+    Continent_Top=df[df['Continent']==Continent].groupby('country')['electricity_generation'].sum().sort_values(ascending=False).head(10).reset_index()
+    Continent_fig11=px.bar(Continent_Top,x='country',y='electricity_generation',color='country',labels=({'country':'Country','electricity_generation':'Electricity Generation Value in Twh'}),title='Top 10 Most Electricity Generation Country From 2000-2022')
+
 
     st.plotly_chart(ContinentWise_fig1)
     st.plotly_chart(Continent_fig6)
     st.plotly_chart(Continent_fig5)
+    st.plotly_chart(Continent_fig11)
     st.plotly_chart(ContinentWise_fig2)
     st.plotly_chart(Continent_fig3)
     st.plotly_chart(Continent_fig4)
@@ -414,7 +421,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
         st.write(x,'Kwh')
     with col1:
         st.info(f'Total Electricity Generation in {Year}')
-        st.write(y,'Gwh')
+        st.write(y,'Twh')
     st.markdown("""---""")
 
 
@@ -427,13 +434,13 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
          'solar_electricity', 'biofuel_electricity', 'wind_electricity',
          'other_renewable_exc_biofuel_electricity']].sum().reset_index()
     Continent_fig1 = px.bar(Electrity_by_year_ContinentWise, x='index', y=0,
-                            labels=({'index': 'Electricity Mode', '0': 'Value in GWH'}), color='index',
+                            labels=({'index': 'Electricity Mode', '0': 'Value in Twh'}), color='index',
                             title='Electricity Generation ')
 # 2)->
     ContinentWise = df[(df['year'] == Year) & (df['Continent'] == Continent)][
         ['non_renewable_electricity', 'renewable_electricity']].sum().reset_index()
     ContinentWise.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    ContinentWise_fig2 = px.pie(ContinentWise, values='Production in GWH', names='Electricity',
+    ContinentWise_fig2 = px.pie(ContinentWise, values='Production in Twh', names='Electricity',
                                 title='Renewable Vs Non-Renewable Share ',hole=0.4)
 #3) ->
     ContinentWise_Non_Renewable = df[(df['year'] == Year) & (df['Continent'] == Continent)][
@@ -457,19 +464,20 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
     ContinentWise_fossile = df[(df['year'] == Year) & (df['Continent'] == Continent)][
         ['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
     ContinentWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    ContinentWise_fig5 = px.pie(ContinentWise_fossile, values='Production in GWH', names='Electricity',
+    ContinentWise_fig5 = px.pie(ContinentWise_fossile, values='Production in Twh', names='Electricity',
                                 title='Fossil Vs Non-Fossil Share ',color='Electricity',hole=0.4)
 
 
 
 # 6)->
+    Continent_Top=df[(df['year'] == Year) & (df['Continent'] == Continent)].groupby('country')['electricity_generation'].sum().sort_values(ascending=False).head(10).reset_index()
+    Continent_fig11=px.bar(Continent_Top,x='country',y='electricity_generation',color='country',labels=({'country':'Country','electricity_generation':'Electricity Generation Value in Twh'}),title='Top 10 Most Electricity Generation Country')
 
-
-
-
-
+    
+# Vis -->
     st.plotly_chart(Continent_fig1)
     st.plotly_chart(ContinentWise_fig2)
+    st.plotly_chart(Continent_fig11)
     st.plotly_chart(Continent_fig3)
     st.plotly_chart(Continent_fig4)
     st.plotly_chart(ContinentWise_fig5)
@@ -490,7 +498,7 @@ if User_Menu=='Country Wise' and Year=='Overall' and Country!='Overall':
     Electricity_generation_Countrywise = df[df['country'] == Country].groupby('year')[
         'electricity_generation'].sum().reset_index()
     Country_fig1 = px.line(Electricity_generation_Countrywise, x='year', y='electricity_generation',
-                           labels=({'year': 'Year', 'electricity_generation': 'Electricity Generation in (GWH)'}),
+                           labels=({'year': 'Year', 'electricity_generation': 'Electricity Generation in (Twh)'}),
                            markers='year', title='Electricity Generation over the Year ')
 
     # 2 --->
@@ -501,14 +509,14 @@ if User_Menu=='Country Wise' and Year=='Overall' and Country!='Overall':
                 Electricity_per_capita_CountryWise['electricity_generation'] * 1000000000 /
                 Electricity_per_capita_CountryWise['population'])
     Country_fig5 = px.line(Electricity_per_capita_CountryWise, x='year', y='Electricity_per_capita', markers='year',
-                           labels=({'year': 'Year', 'Electricity_per_capita': 'Electricity Per Capita (KWH)'}),
+                           labels=({'year': 'Year', 'Electricity_per_capita': 'Electricity Per Capita (Kwh)'}),
                            title='Electricity Per Capita ')
 
     # 3-->
     CountryWise = df[df['country'] == Country][
         ['non_renewable_electricity', 'renewable_electricity']].sum().reset_index()
-    CountryWise.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    Country_fig2 = px.pie(CountryWise, values='Production in GWH', names='Electricity',
+    CountryWise.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
+    Country_fig2 = px.pie(CountryWise, values='Production in Twh', names='Electricity',
                           title='Renewable Vs Non-Renewable Share',hole=0.4)
 
     # 4--->
@@ -520,7 +528,7 @@ if User_Menu=='Country Wise' and Year=='Overall' and Country!='Overall':
                            y=['coal_electricity', 'gas_electricity', 'oil_electricity', 'nuclear_electricity',
                               'hydro_electricity', 'solar_electricity', 'biofuel_electricity', 'wind_electricity',
                               'other_renewable_exc_biofuel_electricity'],
-                           labels=({'year': 'Year', 'value': 'Electricity in (GWH)'}),
+                           labels=({'year': 'Year', 'value': 'Electricity in (Twh)'}),
                            title='Elelctricity Generation Mode Over the Year')
 
 
@@ -551,14 +559,17 @@ if User_Menu=='Country Wise' and Year=='Overall' and Country!='Overall':
     CountryWise_fossile = df[df['country'] == Country][
         ['fossile_electricity', 'Non_fossile_electricity']].sum().reset_index()
     CountryWise_fossile.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
-    Country_fig7 = px.pie(CountryWise_fossile, values='Production in GWH', names='Electricity',
+    Country_fig7 = px.pie(CountryWise_fossile, values='Production in Twh', names='Electricity',
                           title='Fossil Vs Non-Fossil Share',hole=0.4)
-
+    
+    # 8) -->
     Demand_vs_supply = df[df['country'] == Country].groupby('year')[
         ['electricity_generation', 'electricity_demand']].sum().reset_index()
     Country_fig8 = px.line(Demand_vs_supply, x='year', y=['electricity_generation', 'electricity_demand'],
-                             markers='year', labels=({'year': 'Year', 'value': 'Electricity in GWH'}),
+                             markers='year', labels=({'year': 'Year', 'value': 'Electricity in Twh'}),
                              title='Electricity Generation vs Demand Curve')
+    
+    # 9) -->
 
 
     st.plotly_chart(Country_fig1)
