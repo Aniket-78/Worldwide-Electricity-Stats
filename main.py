@@ -77,7 +77,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
     
 # A1.1) -->
     Electricity_generation_YearWise=df.groupby('year')['electricity_generation'].sum().reset_index()
-    fig = px.line(Electricity_generation_YearWise, x='year', y='electricity_generation',labels=({'year':'Year','electricity_generation':'Electricity Generation in (TWH)'}),markers='year',title='Electricity Generation over the Year')
+    fig = px.line(Electricity_generation_YearWise, x='year', y='electricity_generation',labels=({'year':'Year','electricity_generation':'Electricity Generation in (Twh)'}),markers='year',title='Electricity Generation over the Year')
 
 # A1.2)-->
     Worldwise = df[['non_renewable_electricity', 'renewable_electricity']].sum().reset_index()
@@ -439,7 +439,7 @@ if User_Menu=='Continent Wise' and Year!='Overall' and Continent!='Overall':
 # 2)->
     ContinentWise = df[(df['year'] == Year) & (df['Continent'] == Continent)][
         ['non_renewable_electricity', 'renewable_electricity']].sum().reset_index()
-    ContinentWise.rename(columns={'index': 'Electricity', 0: 'Production in GWH'}, inplace=True)
+    ContinentWise.rename(columns={'index': 'Electricity', 0: 'Production in Twh'}, inplace=True)
     ContinentWise_fig2 = px.pie(ContinentWise, values='Production in Twh', names='Electricity',
                                 title='Renewable Vs Non-Renewable Share ',hole=0.4)
 #3) ->
