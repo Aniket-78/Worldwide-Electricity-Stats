@@ -141,7 +141,7 @@ if User_Menu == 'Worldwide' and Year=='Overall':
 
 
 # Vis --> 1(A)
-    s.plotly_chart(Worldwide_fig11)
+    st.plotly_chart(Worldwide_fig11)
     st.plotly_chart(fig)
     st.plotly_chart(Worldwide_fig6)
     st.plotly_chart(Worldwide_fig5)
