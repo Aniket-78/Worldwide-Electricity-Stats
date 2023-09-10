@@ -595,7 +595,7 @@ if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
         st.write(x,'kwh')
     with col1:
         st.info(f'Total Electricity Generation in {Year}')
-        st.write(y,'Gwh')
+        st.write(y,'Twh')
     st.markdown("""***""")
 
     Electrity_by_year_ = df[(df['year'] == Year) & (df['country'] == Country)][
@@ -603,7 +603,7 @@ if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
          'solar_electricity', 'biofuel_electricity', 'wind_electricity',
          'other_renewable_exc_biofuel_electricity']].sum().reset_index()
     Y_fig1 = px.bar(Electrity_by_year_, x='index', y=0,
-                            labels=({'index': 'Electricity Mode', '0': 'Value in GWH'}), color='index',
+                            labels=({'index': 'Electricity Mode', '0': 'Value in Twh'}), color='index',
                             title='Electricity Generation ')
     # 2)->
     ContinentWise = df[(df['year'] == Year) & (df['country'] == Country)][
