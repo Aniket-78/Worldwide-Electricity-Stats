@@ -647,9 +647,6 @@ if User_Menu=='Country Wise' and Year!='Overall' and Country!='Overall':
     st.plotly_chart(ContinentWise_fig5)
 
 # -------------------------------------------------------------------------------------------------------------------------(6)
-# else
-else:
-    st.write('No Data')
 
 
 
